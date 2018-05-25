@@ -10,8 +10,10 @@ export default class PokeListItem extends  Component {
         let props = this.props,
             pkm = props.pkm;
 
+        { document.getElementById("poke-filter").style.display = 'display' }
+
         return (
-          <li className="poke-list-item">
+            <li className="poke-list-item">
               <Link to={`/${pkm.number}`}>
                 <img src={`//serebii.net/pokedex-xy/icon/${pkm.number}.png`}/>
                 <span>{pkm.number} - {pkm.name}</span>

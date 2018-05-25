@@ -13,7 +13,7 @@ export  default  class PokeList extends  Component {
     };
 
     componentWillMount() {
-        if(!PokeApi.pkmList.length) {
+        if (!PokeApi.pkmList.length) {
             PokeApi.listAll().then(pkmList => {
                 this.setState({pkmList});
             })
@@ -28,9 +28,9 @@ export  default  class PokeList extends  Component {
 
         return(
           <ul className="poke-list" id="pokeList">
-              {
-                  state.pkmList
-                      .filter(pkm => pkm.name.indexOf(props.filter) !== -1)
+                {
+                    state.pkmList
+                        .filter(pkm => pkm.name.indexOf(props.filter) !== -1)
                       .map(pkm => <PokeListItem pkm={pkm} key={pkm.number}/>)
               }
           </ul>

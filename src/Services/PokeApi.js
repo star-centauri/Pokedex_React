@@ -10,13 +10,12 @@ var PokeApi = {
             .then(response => response.results)
             .then(pkmList => {
                 return pkmList.map(pokemon => {
-                    pokemon.number = this.getNumberFromURL(pokemon.resource_url);
+                    pokemon.number = this.getNumberFromURL(pokemon.url);
                     return pokemon;
-                }).filter(pokemon => parseInt(pokemon.number) < 1000)
-                    .sort((a, b) => (a.number > b.number ? 1 : -1))
+                }).sort((a, b) => (a.number > b.number ? 1 : -1))
                     .map(pokemon => {
                         pokemon.number = ('000' + pokemon.number).slice(-3);
-                        return;
+                        return pokemon;
                     })
             })
             .then(pkmList => {
@@ -25,8 +24,11 @@ var PokeApi = {
             })
     },
     getNumberFromURL: function (url) {
-        //console.log(url);
         return parseInt(url.replace(/.*\/(\d+)\/$/, '$1'));
+    },
+    getPkm: function (pkm) {
+        return fetch(`${this.url}pokemon/${pkm.number}`)
+            .then(response => response.json());
     }
 };
 

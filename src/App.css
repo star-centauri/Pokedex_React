@@ -8,7 +8,8 @@
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     background-color: #666;
-    color: #fff; }
+    color: #fff
+}
 
 #poke-filter:focus{
     outline: none;
