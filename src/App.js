@@ -28,8 +28,7 @@ class App extends Component {
         return (
             <div className="App">
                 <img className="pokeball-back" id="pokeballBack" src="//hanashiro.github.io/pokedex/images/pokeball.svg" />
-                <input type="text" id="poke-filter" placeholder="Search" onKeyUp={this.setFilter.bind(this)}/>
-
+                <Route exact path="/" render={() => <input type="text" id="poke-filter" placeholder="Search" onKeyUp={this.setFilter.bind(this)} /> }/>
                 <Route exact path="/" render={() => <PokeList filter={state.filter}/> }/>
                 <Route exact path="/:pokeNumber" component={PokeInfo}/>
             </div>

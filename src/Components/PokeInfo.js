@@ -27,7 +27,7 @@ export default class PokeInfo extends Component {
             PokeApi.getPkm(pkm)
                 .then((info) => {
                     pkm.info = info;
-                    that.setState({pkm});
+                    this.setState({pkm});
                 });
         }
     }
@@ -36,48 +36,55 @@ export default class PokeInfo extends Component {
         let state = this.state,
             pkm = state.pkm;
 
-        { document.getElementById("poke-filter").style.display = 'none' }
+        if (pkm.info.types.length !== 0) {
+            return (
+                <div>
+                    <Link to="/" className="back-button"> &lt; </Link>
 
-        return(
-            <div>
-              <Link to="/" className="back-button"> &lt; </Link>
+                    <div className="poke-profile">
+                        <div>{pkm.number} - {pkm.name.toUpperCase()}</div>
+                        <img className="poke-sprite" src={`//serebii.net/sunmoon/pokemon/${pkm.number}.png`} />
+                    </div>
 
-              <div className="poke-profile">
-                  <div>#{pkm.number} - {pkm.name}</div>
-                  <img className="poke-sprite" src={`//serebii.net/sunmoon/pokemon/${pkm.number}.png`} />
-              </div>
+                    <ul className="poke-types" id="pokeList">
+                        {
+                            pkm.info.types.map(type => {
+                                return (
+                                    <li key={type.type.name}>
+                                        <img src={`//serebii.net/pokedex-bw/type/${type.type.name}.gif`} />
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
 
-              <ul className="poke-types" id="pokeList">
-                    {
-                        pkm.info.types.map(type => {
-                            return (
-                                <li key={type.type.name}>
-                                    <img src={`//serebii.net/pokedex-bw/type/${type.type.name}.gif`} />
-                                </li>
-                            );
-                        })
-                    }
-              </ul>
+                    <table className="stats">
+                        <tbody>
+                            <tr> 
+                                {
+                                    pkm.info.stats.map(stat => {
+                                        return (
+                                            <td key={stat.stat.name}>{stat.stat.name}</td>
+                                        );
+                                    })
+                                }
+                            </tr>
+                            <tr>
+                                {
+                                    pkm.info.stats.map(stat => {
+                                        return (
+                                            <td key={stat.stat.name}>{stat.base_stat}</td>
+                                        );
+                                    })
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            );
+        } else {
+            return "So um momento que esta carregando..."
+        }
 
-              <table className="stats">
-                  <tbody>
-                    <tr>
-                        <td>Attack</td>
-                        <td>Defense</td>
-                        <td>Sp Atk</td>
-                        <td>Sp Def</td>
-                        <td>Speed</td>
-                    </tr>
-                    <tr>
-                      <td>{pkm.info.attack}</td>
-                      <td>{pkm.info.defense}</td>
-                      <td>{pkm.info.sp_atk}</td>
-                      <td>{pkm.info.sp_def}</td>
-                      <td>{pkm.info.speed}</td>
-                  </tr>
-                  </tbody>
-              </table>
-          </div>
-        );
     }
 }
